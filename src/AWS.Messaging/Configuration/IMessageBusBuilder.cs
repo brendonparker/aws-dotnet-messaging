@@ -109,4 +109,20 @@ public interface IMessageBusBuilder
     /// Configures the backoff policy used by <see cref="BackoffHandler"/> and its available options.
     /// </summary>
     IMessageBusBuilder ConfigureBackoffPolicy(Action<BackoffPolicyBuilder> configure);
+
+    /// <summary>
+    /// Configures middleware to be run against any send to the specified queue
+    /// </summary>
+    /// <param name="queueUrl"></param>
+    /// <typeparam name="TMiddleware"></typeparam>
+    /// <returns></returns>
+    IMessageBusBuilder AddSQSMiddleware<TMiddleware>(string queueUrl) where TMiddleware : ISQSMiddleware;
+
+    /// <summary>
+    /// Configures middleware to be run against any send to the specified topic
+    /// </summary>
+    /// <param name="topicArn"></param>
+    /// <typeparam name="TMiddleware"></typeparam>
+    /// <returns></returns>
+    IMessageBusBuilder AddSNSMiddleware<TMiddleware>(string topicArn) where TMiddleware : ISNSMiddleware;
 }

@@ -299,6 +299,18 @@ public class MessageBusBuilder : IMessageBusBuilder
         return this;
     }
 
+    /// <inheritdoc/>
+    public IMessageBusBuilder AddSQSMiddleware<TMiddleware>(string queueUrl) where TMiddleware : ISQSMiddleware
+    {
+        return this;
+    }
+
+    /// <inheritdoc/>
+    public IMessageBusBuilder AddSNSMiddleware<TMiddleware>(string topicArn) where TMiddleware : ISNSMiddleware
+    {
+        return this;
+    }
+
     internal void Build()
     {
         LoadConfigurationFromEnvironment();
@@ -400,4 +412,6 @@ public class MessageBusBuilder : IMessageBusBuilder
         if (!string.IsNullOrEmpty(logMessageContentEnvVar) && bool.TryParse(logMessageContentEnvVar, out var logMessageContent))
             _messageConfiguration.LogMessageContent = logMessageContent;
     }
+
+
 }
